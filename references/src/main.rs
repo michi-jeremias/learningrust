@@ -10,6 +10,30 @@ fn show(table: &Table) {
     }
 }
 
+fn dereference() {
+    let x = 10;
+    let r = &x;
+    // assert_eq!(r, 10) // doesn't work
+    assert_eq!(*r, 10);
+
+    let mut y = 32;
+    let m = &mut y;
+    *m += 32;
+    assert!(*m == 64);
+}
+
+fn ref_of_ref() {
+    let x = 10;
+    let y = 10;
+    let rx = &x;
+    let ry = &y;
+    let rrx = &rx;
+    let rry = &ry;
+    
+    assert!(*rrx == rx);
+    assert!(rry > rrx);
+}
+
 fn main() {
     let mut table = Table::new();
     table.insert("Gesualdo".to_string(), vec!["many madrigals".to_string(), "Tenebrae responsoria".to_string()]);
@@ -17,4 +41,7 @@ fn main() {
     table.insert("Cellini".to_string(), vec!["Persues with the head of medusa".to_string(), "a salt cellar".to_string()]);
 
     show(&table);
+
+    dereference();
+    ref_of_ref();
 }
